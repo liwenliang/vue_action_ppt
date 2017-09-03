@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板-特殊属性</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var childComp = {
+        template: '<div><h1>this is from childcomp</h1></div>'
+    };
+
+    var childComp1 = {
+        template: '<div><slot></slot></div>',
+    }
+
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+                '<h2>测试key</h2>' +
+                '<input type="button" value="切换ok值" @click="changeOkProp">' +
+                '<div v-if="ok"><h3>ok的值为true时显示</h3><input type="text"></div>' +
+                '<div v-else><h3>ok的值为false时显示</h3><input type="text"></div>' +
+                '<hr>' +
+                '<input type="button" value="切换ok1值" @click="changeOk1Prop">' +
+                '<div key="1" v-if="ok1"><h3>ok1的值为true时显示</h3><input type="text"></div>' +
+                '<div key="2" v-else><h3>ok1的值为false时显示</h3><input type="text"></div>' +
+                '<hr>' +
+                '<h2>测试ref</h2>' +
+                '<input type="button" @click="printMsg" value="控制台打印ref对应节点">' +
+                '<div ref="myRef">{{msg}}</div>' +
+                '<childComp ref="compRef"></childComp>' +
+                '<hr>' +
+                '<h2>测试slot</h2>' +
+                '<childComp1><h1 @click="clickSlot">{{msg}}</h1></childComp1>' +
+            '</div>',
+        data: {
+            ok: false,
+            ok1: false,
+            msg: '我爱北京天安门……'
+        },
+        methods: {
+            changeOkProp: function () {
+                this.ok = !this.ok;
+            },
+            changeOk1Prop: function () {
+                this.ok1 = !this.ok1;
+            },
+            printMsg: function () {
+                console.log('---------------------------dom ref----------------------------');
+                console.log('this.$refs.myRef', this.$refs.myRef);
+                console.log('typeof this.$refs.myRef', typeof this.$refs.myRef);
+                console.log('this.$refs.myRef.innerText', this.$refs.myRef.innerText);
+                console.log('---------------------------dom ref----------------------------');
+                console.log('---------------------------comp ref----------------------------');
+                console.log(this.$refs.compRef);
+                console.log(this.$refs.compRef instanceof Vue);
+                console.log('---------------------------comp ref----------------------------');
+            },
+            clickSlot: function() {
+                console.log('这是从父组件传给子组件的slot，能够绑定事件');
+            }
+        },
+        components: {
+            childComp: childComp,
+            childComp1: childComp1
+        }
+    });
+</script>
+</body>
+</html>

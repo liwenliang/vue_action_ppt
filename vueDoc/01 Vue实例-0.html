@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue实例全的写法</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+    <body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        // 一个实例可能用到的最全的写法
+        var myVue = new Vue({
+            el: '#app',
+            template: '<h1>{{msg}} --- {{c_msg}}</h1>',
+            beforeCreate: function () {
+                console.log('beforeCreate');
+            },
+            data: {
+                msg: 'hello world'
+            },
+            computed: {
+                c_msg: function () {
+                    return 'computed ' + this.msg;
+                }
+            },
+            watch: {
+                msg: function (newVal, oldVal) {
+                    console.log('msg changed form ' + oldVal + ' to ' + newVal);
+                }
+            },
+            methods: {
+                onClick: function () {
+                    concole.log('onClick');
+                }
+            },
+            created: function () {
+                console.log('created');
+            },
+            beforeMount: function () {
+                console.log('beforeMount');
+            },
+            mounted: function () {
+                console.log('mounted');
+            },
+            beforeUpdate: function () {
+                console.log('beforeUpdate');
+            },
+            updated: function () {
+                console.log('updated');
+            },
+            beforeDestroy: function () {
+                console.log('beforeDestroy');
+            },
+            destroyed: function () {
+                console.log('destroyed');
+            },
+            components: {}
+        });
+    </script>
+    </body>
+</html>

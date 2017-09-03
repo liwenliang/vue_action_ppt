@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据 - data 数据绑定 复杂数据结构</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+        '<div>' +
+            '<div>' +
+                '<h2>resData.name -- {{resData.name}}</h2>' +
+                '<h2>resData.level.name -- {{resData.level.name}}</h2>' +
+            '</div>' +
+        '</div>',
+        data: {
+            // 声明根级响应式属性
+            resData: {
+                level: {}
+            }
+        },
+        created: function () {
+            var _self = this;
+            setTimeout(function () {
+                _self.resData = {
+                    name: 'zhangsan',
+                    level: {
+                        name: 'lisi'
+                    }
+                }
+            }, 3000);
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性绑定-.camel</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+                '<h2 ref="myRef" :data-name.camel="name">.camel修饰符能够将短横线转换成驼峰写法</h2>' +
+                '<input type="button" @click="onClick" value="get data-name attribute">' +
+            '</div>',
+        data: {
+            name: 'zhangsan'
+        },
+        methods: {
+            onClick: function() {
+                console.log(this.$refs.myRef.getAttribute('dataName'));
+                console.log(this.$refs.myRef.getAttribute('data-name'));
+            }
+        }
+    });
+</script>
+</body>
+</html>

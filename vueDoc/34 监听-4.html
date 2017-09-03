@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听 - watch 数组</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+                '<h1>{{arr.join(",")}}</h1>' +
+                '<input type="button" value="对数组赋值" @click="onClick">' +
+            '</div>',
+        data: {
+            arr: [5, 4, 3, 2, 1, 0]
+        },
+        watch: {
+            arr: function (newVal, oldVal) {
+                console.log('arr changed form [' + oldVal.join(',') + '] to [' + newVal.join(',') + ']');
+            }
+        },
+        methods: {
+            onClick: function () {
+                this.arr = [100, 200, 300];
+            }
+        }
+    });
+</script>
+</body>
+</html>

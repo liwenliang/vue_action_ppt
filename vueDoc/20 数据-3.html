@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据 - data 数据绑定 对象重新赋值</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+        '<div>' +
+            '<div v-for="(value, key) in myObj">' +
+                '<h1>{{key}}: {{value}}</h1>' +
+                '<input type="text" v-model="myObj[key]">' +
+            '</div>' +
+        '</div>',
+        data: {
+            myObj: {
+                name: 'zhangsan',
+                age: 12,
+                more: 'more'
+            }
+        },
+        created: function () {
+            var _self = this;
+            setTimeout(function () {
+                _self.myObj = {
+                    name: 'lisi',
+                    age: 20,
+                    a: 'a',
+                    b: 'b',
+                    c: 'c'
+                };
+            }, 3000);
+        }
+    });
+</script>
+</body>
+</html>

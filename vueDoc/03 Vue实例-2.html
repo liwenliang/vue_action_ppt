@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>需要绑定的数据是通过异步请求过来的</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    // 一个实例可能最常用的写法
+    var myVue = new Vue({
+        el: '#app',
+        template: '<h1>{{name}}--{{res.type}}--{{res.person.age}}--{{res.person.black.name}}</h1>',
+        data: {
+            res: {
+                person: {
+                    black: {}
+                }
+            }
+        },
+        computed: {
+        },
+        watch: {
+        },
+        methods: {
+            getData: function () {
+                var _self = this;
+                setTimeout(function () {
+                    _self.res = {
+                        type: 'person',
+                        person: {
+                            age: 23,
+                            black: {
+                                name: '黑人'
+                            }
+                        }
+                    };
+                    _self.name = ' 张三';
+                }, 2000);
+            }
+        },
+
+        created: function () {
+            this.getData();
+        },
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单的双向绑定 - v-model 基础用法</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+                '<input v-model="text" type="text"><hr>' +
+                '<textarea v-model="textarea"></textarea><hr>' +
+                'checked<input type="checkbox" v-model="checkbox"><hr>' +
+                'a<input type="checkbox" value="a" v-model="checkgroup">' +
+                'b<input type="checkbox" value="b" v-model="checkgroup">' +
+                'c<input type="checkbox" value="c" v-model="checkgroup"><hr>' +
+                'a<input type="radio" value="a" v-model="radio">' +
+                'b<input type="radio" value="b" v-model="radio">' +
+                'c<input type="radio" value="c" v-model="radio"><hr>' +
+                '<select v-model="selected">' +
+                    '<option value="1">A</option>' +
+                    '<option value="2">B</option>' +
+                    '<option value="3">C</option>' +
+                '</select><br>' +
+                '<select multiple v-model="multipleSelected" style="width: 60px;">' +
+                    '<option value="1">A</option>' +
+                    '<option value="2">B</option>' +
+                    '<option value="3">C</option>' +
+                '</select><br>' +
+                '<pre>' +
+                    '{{JSON.stringify($data, true, "  ")}}' +
+                '</pre>' +
+            '</div>',
+        data: {
+            text: 'text',
+            textarea: 'textarea',
+            checkbox: true,
+            checkgroup: [],
+            radio: '',
+            selected: '1',
+            multipleSelected: []
+        }
+    });
+</script>
+</body>
+</html>

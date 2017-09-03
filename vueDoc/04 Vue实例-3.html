@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>beforeUpdate 和 updated</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    // 一个实例可能最常用的写法
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div :data-name="name">' +
+                '<h1>{{res.type}}--{{res.person.age}}--{{res.person.black.name}}</h1>' +
+                '<input type="button" value="click" @click="onClick">' +
+            '</div>',
+        data: {
+            res: {
+                person: {
+                    black: {}
+                }
+            },
+            name: 'hello'
+        },
+        computed: {
+        },
+        watch: {
+        },
+        methods: {
+            onClick: function () {
+                this.$destroy();
+                this.name = 'hola';
+                console.log(this.$el.getAttribute('data-name'));
+                this.$nextTick(function () {
+                    console.log(this.$el.getAttribute('data-name'));
+                });
+            },
+
+            getData: function () {
+                var _self = this;
+                setTimeout(function () {
+                    _self.res = {
+                        type: 'person',
+                        person: {
+                            age: 23,
+                            black: {
+                                name: '黑人'
+                            }
+                        }
+                    };
+                }, 2000);
+            }
+        },
+        created: function () {
+            this.getData();
+        },
+        beforeDestroy: function () {
+            console.log('beforeDestroy');
+        },
+        destroyed: function () {
+            console.log('destroyed');
+        }
+    });
+</script>
+</body>
+</html>

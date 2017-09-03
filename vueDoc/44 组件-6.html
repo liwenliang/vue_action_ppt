@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件 - component 自定义事件</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        var myComponent = {
+            props: ['name'],
+            template:
+                '<div>' +
+                    '<h1>{{name}} -- <input type="text" v-model.lazy.trim="showText"></h1>' +
+                '</div>',
+            data: function () {
+                return {
+                    showText: ''
+                };
+            },
+            watch: {
+                showText: function (newValue) {
+                    this.$emit('update:name', newValue);
+                }
+            }
+        };
+
+        var myVue = new Vue({
+            el: '#app',
+            template:
+                '<div>' +
+                    '<my-component v-for="i in 3" :name.sync="name" key="i"></my-component>' +
+                '</div>',
+            data: {
+                name: '这是父组件的数据'
+            },
+            components: {
+                'my-component': myComponent
+            }
+        });
+    </script>
+</body>
+</html>

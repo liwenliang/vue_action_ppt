@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件 - component 局部组件</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        var myComponent = {
+            props: ['prop'],
+            template:
+                '<div>' +
+                    '<h1 style="cursor: pointer;" @click="onClick">点击标题count+1 count: {{count}} -- {{prop}}</h1>' +
+                '</div>',
+            data: function () {
+                return {
+                    count: 0
+                };
+            },
+            methods: {
+                onClick: function () {
+                    this.count++;
+                }
+            }
+        };
+
+        var myVue = new Vue({
+            el: '#app',
+            template:
+                '<div>' +
+                    '<my-component v-for="i in 3" :prop="prop"></my-component>' +
+                '</div>',
+            data: {
+                prop: 'parent prop'
+            },
+            components: {
+                'my-component': myComponent
+            }
+        });
+    </script>
+</body>
+</html>

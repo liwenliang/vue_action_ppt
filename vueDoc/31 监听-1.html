@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监听 - watch 对象</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        var myVue = new Vue({
+            el: '#app',
+            template:
+            '<div>' +
+                '<h1>监听myObj的变化</h1>' +
+                '<h2>{{JSON.stringify(myObj, true, "  ")}}</h2>' +
+                '<input type="text" v-model.trim="myObj.name" placeholder="这里的修改不会触发myObj的变化">' +
+                '<input type="button" value="点击修改myObj的值" @click="onChangeObj">' +
+            '</div>',
+            data: {
+                myObj: {
+                    name: 'zhansan'
+                }
+            },
+            watch: {
+                myObj: function (newVal, oldVal) {
+                    console.log('myObj changed form ' + oldVal + ' to ' + newVal);
+                }
+            },
+            methods: {
+                onChangeObj: function () {
+                    this.myObj = {
+                        name: 'lisi'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

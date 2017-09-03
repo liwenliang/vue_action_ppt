@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性绑定-style与class</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+                '<h1 class="a" :class="classStr">class绑定值</h1>' +
+                '<h1 class="a" :class="classObj">class绑定对象</h1>' +
+                '<h1 class="a" :class="[classb, classc]">class绑定数组</h1>' +
+                '<h1 style="font-size: 33px" :style="styleStr">style绑定值</h1>' +
+                '<h1 style="cursor:crosshair;" :style="styleObj">style绑定对象</h1>' +
+                '<h1 style="cursor:crosshair;" :style="[styleb, stylec]">style绑定数组</h1>' +
+            '</div>',
+        data: {
+            classStr: 'b c',
+            classObj: {
+                b: true,
+                c: true
+            },
+            classb: {
+                b1: true,
+                b2: true
+            },
+            classc: 'c',
+
+            styleStr: 'color: red;',
+            styleObj: {
+                color: 'red',
+                border: '1px solid black'
+            },
+
+            styleb: {
+                color: 'red'
+            },
+            stylec: {
+                border: '1px solid yellow'
+            }
+        },
+        created: function () {
+            var _self = this;
+            // 3秒后删除b
+            setTimeout(function () {
+                _self.classStr = 'c';
+                _self.classb.b2 = false;
+                _self.classObj.b = false;
+
+                _self.styleStr = '';
+                _self.styleObj.color = '';
+            }, 3000);
+            // 6秒后删除c
+            setTimeout(function () {
+                _self.classStr = '';
+                _self.classc = '';
+                _self.classObj.c = false;
+
+                _self.styleStr = 'border:2px solid yellow;color:red;';
+                _self.styleObj.border = '';
+            }, 6000);
+        }
+    });
+</script>
+</body>
+</html>

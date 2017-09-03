@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据 - data 响应式原理 如何追踪变化</title>
+</head>
+<body>
+<h1>响应式原理 如何追踪变化</h1>
+<script type="text/javascript">
+    var myObj = {
+        name: 'zhangsan',
+        age: 23
+    };
+
+    // 遍历
+    function setObserve(obj){
+        for(var key in obj) {
+            defineSetGet(obj, key);
+//            if(Object.prototype.toString.call(obj[key]) === '[object Object]'){
+//                setObserve(obj[key]);
+//            }
+        }
+    }
+
+    // 设置get set
+    function defineSetGet(obj, key) {
+        var value = obj[key];
+        Object.defineProperty(obj, key, {
+            get: function () {
+                return value;
+            },
+            set: function (newValue) {
+                if (newValue === value) {
+                    console.log('两个值相同，return');
+                    return;
+                }
+                console.log(key + ' changed');
+                value = newValue;
+            }
+        });
+    }
+
+    setObserve(myObj);
+
+    console.log(myObj);
+</script>
+</body>
+</html>

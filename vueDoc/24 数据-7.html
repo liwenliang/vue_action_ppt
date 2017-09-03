@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据 - data 响应式原理 异步更新队列</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+                '<h1>name: {{myObj.name}}</h1>' +
+                '<h1>age: {{myObj.age}}</h1>' +
+                '<h1>nothing: {{myObj.nothing}}</h1>' +
+                '<input type="text" v-model="myObj.nothing">' +
+                '<input type="button" @click="onClick" value="添加nothing属性">' +
+            '</div>',
+        data: {
+            myObj: {
+                name: 'zhangsan',
+                age: 12
+            }
+        },
+        methods: {
+            onClick: function () {
+                // 异步更新队列
+                // 这里nothing虽然被渲染到了页面，但是他并不是响应式的
+                this.myObj.name = 'lisi';
+                this.myObj.age = 20;
+                this.myObj.nothing = 'nothing';
+            }
+        }
+    });
+</script>
+</body>
+</html>

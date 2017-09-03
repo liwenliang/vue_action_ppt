@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理器 - v-on 绑定dom事件</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div>' +
+               '<div ' +
+                    ':style="styleObj" ' +
+                    '@click="onClick(123, $event)" ' +
+                    '@mouseover="onMouseOver" ' +
+                    '@dblclick="onDblClick" ' +
+                    '@mousemove="onMouseMove" ' +
+                    '@mousedown="onMouseDown">' +
+                '</div>' +
+            '</div>',
+        data: {
+            styleObj: {
+                width: '300px',
+                height: '300px',
+                border: '1px solid red;',
+                background: 'gray'
+            }
+        },
+        methods: {
+            onClick: function (p1,p2) {
+                console.log('onClick');
+                console.log(p1);
+                console.log(p2);
+            },
+            onMouseOver: function(evt) {
+                console.log('onMouseOver');
+                console.log(evt);
+            },
+            onMouseDown: function() {
+                console.log('onMouseDown');
+            },
+            onMouseMove: function () {
+                console.log('mousemove');
+            },
+            onDblClick: function() {
+                console.log('onDblClick');
+            }
+        }
+    });
+</script>
+</body>
+</html>

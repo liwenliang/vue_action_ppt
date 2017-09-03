@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件 - component 非父子组件消息传递</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        var events = new Vue();
+        var c1 = {
+            template:
+                '<div>' +
+                    '<h1>{{name}}</h1>' +
+                    '<input type="button" value="改变第二个组件的name" @click="onClick">' +
+                '</div>',
+            data: function () {
+                return {
+                    name: 'c1_name'
+                };
+            },
+            methods: {
+                onClick: function () {
+                    events.$emit('changeC2Name', 'c2_name_changed');
+                },
+                changeName: function (val) {
+                    this.name = val;
+                }
+            },
+            created: function () {
+                events.$on('changeC1Name', this.changeName);
+            }
+        };
+
+        var c2 = {
+            template:
+            '<div>' +
+                '<h1>{{name}}</h1>' +
+                '<input type="button" value="改变第一个组件的name" @click="onClick">' +
+            '</div>',
+            data: function () {
+                return {
+                    name: 'c2_name'
+                };
+            },
+            methods: {
+                onClick: function () {
+                    events.$emit('changeC1Name', 'c1_name_changed');
+                },
+                changeName: function (val) {
+                    this.name = val;
+                }
+            },
+            created: function () {
+                events.$on('changeC2Name', this.changeName);
+            }
+        };
+
+        var myVue = new Vue({
+            el: '#app',
+            template:
+                '<div>' +
+                    '<c1></c1>' +
+                    '<c2></c2>' +
+                '</div>',
+            data: {
+            },
+            components: {
+                'c1': c1,
+                'c2': c2
+            }
+        });
+    </script>
+</body>
+</html>

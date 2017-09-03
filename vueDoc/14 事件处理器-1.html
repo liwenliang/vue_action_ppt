@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件处理器 - 修饰符</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<script type="text/javascript">
+    var myVue = new Vue({
+        el: '#app',
+        template:
+            '<div @click="onContainerClicked">' +
+                '<div style="width: 200px;height:200px;background:gray;" @click.stop="onChildClicked">.stop</div>' +
+            '</div>',
+        data: {},
+        methods: {
+            onContainerClicked: function () {
+                console.log('containerClicked');
+            },
+            onChildClicked: function () {
+                console.log('childClicked');
+            }
+        }
+    });
+</script>
+</body>
+</html>

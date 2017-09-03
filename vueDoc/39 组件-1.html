@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件 - component 局部组件</title>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="text/javascript">
+        var myComponent = {
+            template:
+                '<div>' +
+                    '<h1>{{msg}}</h1>' +
+                '</div>',
+            data: function () {
+                return {
+                    msg: 'child component'
+                };
+            }
+        };
+
+        var myVue = new Vue({
+            el: '#app',
+            template:
+                '<div>' +
+                    '<my-component></my-component>' +
+                '</div>',
+            components: {
+                'my-component': myComponent
+            }
+        });
+    </script>
+</body>
+</html>

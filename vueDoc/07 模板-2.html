@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板-指令</title>
+    <script src="https://cdn.bootcss.com/vue/2.3.3/vue.js"></script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+    <body>
+    <div id="app">
+        <h3>v-text 更新元素的 textContent</h3>
+        <div>{{text}}</div>
+        <div v-text="text"></div>
+        <hr>
+        <h3>v-html 更新元素的 innerHTML</h3>
+        <div v-html="html">html内容会被替换</div>
+        <hr>
+        <h3>v-show 根据表达式之真假值，切换元素的 display CSS 属性。</h3>
+        <input type="button" @click="show=!show" value="显示隐藏">
+        <div v-show="show">show</div>
+        <hr>
+        <h3>v-if 根据表达式的值的真假条件渲染元素</h3>
+        <input type="button" @click="have=!have" value="添加删除">
+        <div v-if="have"><h4>have属性为true</h4></div>
+        <div v-else><h4>have属性为false</h4></div>
+        <hr>
+
+        <h3>v-for 基于源数据多次渲染元素或模板块</h3>
+        <div><span v-for="(value, index) in forArr">{{index}} -- {{value}}; </span></div>
+        <div><span v-for="(value, key) in forObj">{{key}} -- {{value}}; </span></div>
+        <div><span v-for="value in forNum">{{value}}; </span></div>
+        <div><span v-for="value in forStr">{{value}}; </span></div>
+
+        <hr>
+        <h3>v-on 绑定事件监听器</h3>
+        <div><input type="button" value="单击事件" @click="onClick"><input type="button" value="双击事件" v-on:dblclick="onDblClick"></div>
+        <hr>
+        <h3>v-bind 动态地绑定一个或多个特性</h3>
+        <div v-bind:data-name="bindName">v-bind 绑定属性数据</div>
+        <hr>
+        <h3>v-model 在表单控件或者组件上创建双向绑定</h3>
+        <div><input type="text" v-model="inputModel"><span>{{inputModel}}</span></div>
+        <hr>
+        <h3>v-pre 跳过这个元素和它的子元素的编译过程</h3>
+        <div><h4 v-pre>{{ this is in tags with pre property}}</h4></div>
+        <hr>
+        <h3>v-cloak 这个指令保持在元素上直到关联实例结束编译</h3>
+        <div><h4 v-cloak>this is a v-cloak</h4></div>
+        <hr>
+        <h3>v-once 只渲染元素和组件一次</h3>
+        <div><span v-once>start: {{time}}</span> || <span>current: {{time}}</span></div>
+    </div>
+    <script type="text/javascript">
+        var myVue = new Vue({
+            data: {
+                text: 'text',
+                html: '<h1>html</h1><input type="text">',
+                show: false,
+                have: false,
+                forArr: [1,2,3],
+                forObj: {
+                    name: 'zhangsan',
+                    age: 30
+                },
+                forNum: 10,
+                forStr: 'hello world',
+                bindName: 'lisi',
+                inputModel: '',
+                time: new Date()
+            },
+            methods: {
+                onClick: function() {
+                    console.log('click', (new Date()).getTime());
+                },
+                onDblClick: function() {
+                    console.log('dblclick', (new Date()).getTime());
+                }
+            },
+            created: function () {
+                var _self = this;
+                setInterval(function () {
+                    _self.time = new Date();
+                }, 1000);
+            }
+        });
+
+        // 五秒后实例挂载才会生效
+        setTimeout(function () {
+            myVue.$mount('#app');
+        }, 5000);
+    </script>
+    </body>
+</html>
